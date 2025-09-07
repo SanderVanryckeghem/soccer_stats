@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  home_team: one
+  away_team: one
+  match_date: 2025-09-07 13:59:15
+  home_score: 1
+  away_score: 1
+
+two:
+  home_team: two
+  away_team: two
+  match_date: 2025-09-07 13:59:15
+  home_score: 1
+  away_score: 1
