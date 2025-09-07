@@ -1,0 +1,68 @@
+<!-- app/views/players/index.html.erb -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1>
+    <i class="bi bi-person-badge"></i>
+    All Players
+  </h1>
+</div>
+
+<!-- Filter by Position -->
+<% if @positions.any? %>
+  <div class="card mb-4">
+    <div class="card-body py-2">
+      <div class="d-flex align-items-center flex-wrap">
+        <span class="me-3">Filter by position:</span>
+        <%= link_to "All", players_path, 
+            class: "btn btn-sm #{ params[:position].blank? ? 'btn-primary' : 'btn-outline-primary' } me-2 mb-1" %>
+        <% @positions.each do |position| %>
+          <%= link_to position, players_path(position: position), 
+              class: "btn btn-sm #{ params[:position] == position ? 'btn-primary' : 'btn-outline-primary' } me-2 mb-1" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% if @players.any? %>
+  <div class="row">
+    <% @players.each do |player| %>
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">
+              <%= link_to player.name, [player.team, player], class: "text-decoration-none" %>
+            </h5>
+            <p class="card-text">
+              <span class="badge bg-secondary mb-2"><%= player.position %></span><br>
+              <i class="bi bi-calendar"></i> Age: <%= player.age %><br>
+              <i class="bi bi-people"></i> Team: 
+              <%= link_to player.team.name, player.team, class: "text-decoration-none" %>
+            </p>
+          </div>
+          <div class="card-footer bg-transparent">
+            <div class="btn-group w-100" role="group">
+              <%= link_to [player.team, player], class: "btn btn-outline-primary btn-sm" do %>
+                <i class="bi bi-eye"></i> View
+              <% end %>
+              <%= link_to [:edit, player.team, player], class: "btn btn-outline-secondary btn-sm" do %>
+                <i class="bi bi-pencil"></i> Edit
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="text-center py-5">
+    <i class="bi bi-person-x display-1 text-muted"></i>
+    <h3 class="mt-3">No Players Found</h3>
+    <% if params[:position].present? %>
+      <p class="text-muted">No players found for position: <strong><%= params[:position] %></strong></p>
+      <%= link_to "View All Players", players_path, class: "btn btn-outline-primary" %>
+    <% else %>
+      <p class="text-muted">No players have been added yet.</p>
+      <%= link_to "View Teams", teams_path, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+<% end %>

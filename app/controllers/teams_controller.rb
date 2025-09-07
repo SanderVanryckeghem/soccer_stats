@@ -3,7 +3,7 @@ class TeamsController < ApplicationController
   before_action :set_team, only: [:show, :edit, :update, :destroy]
 
   def index
-    @teams = Team.includes(:players).by_name
+    @teams = Team.includes(:players).order(:name)
   end
 
   def show

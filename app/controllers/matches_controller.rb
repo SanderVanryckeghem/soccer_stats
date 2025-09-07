@@ -13,7 +13,7 @@ class MatchesController < ApplicationController
 
   def new
     @match = Match.new
-    @teams = Team.by_name
+    @teams = Team.order(:name)
   end
 
   def create
@@ -22,20 +22,20 @@ class MatchesController < ApplicationController
     if @match.save
       redirect_to @match, notice: 'Match was successfully created.'
     else
-      @teams = Team.by_name
+      @teams = Team.order(:name)
       render :new, status: :unprocessable_entity
     end
   end
 
   def edit
-    @teams = Team.by_name
+    @teams = Team.order(:name)
   end
 
   def update
     if @match.update(match_params)
       redirect_to @match, notice: 'Match was successfully updated.'
     else
-      @teams = Team.by_name
+      @teams = Team.order(:name)
       render :edit, status: :unprocessable_entity
     end
   end

@@ -1,0 +1,30 @@
+<!-- app/views/players/edit.html.erb -->
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="d-flex align-items-center mb-4">
+      <%= link_to team_player_path(@team, @player), class: "btn btn-outline-secondary me-3" do %>
+        <i class="bi bi-arrow-left"></i>
+      <% end %>
+      <h1 class="mb-0">
+        <i class="bi bi-pencil-square"></i>
+        Edit <%= @player.name %>
+      </h1>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h5 class="mb-0">
+          <i class="bi bi-people"></i>
+          <%= @team.name %>
+        </h5>
+        <small class="text-muted">
+          <span class="badge bg-secondary"><%= @player.position %></span>
+          Age <%= @player.age %>
+        </small>
+      </div>
+      <div class="card-body">
+        <%= render 'form', player: @player %>
+      </div>
+    </div>
+  </div>
+</div>

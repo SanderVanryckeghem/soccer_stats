@@ -1,0 +1,54 @@
+<!-- app/views/teams/index.html.erb -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1>
+    <i class="bi bi-people-fill"></i>
+    Teams
+  </h1>
+  <%= link_to "Add New Team", new_team_path, class: "btn btn-primary" %>
+</div>
+
+<% if @teams.any? %>
+  <div class="row">
+    <% @teams.each do |team| %>
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">
+              <%= link_to team.name, team, class: "text-decoration-none" %>
+            </h5>
+            <p class="card-text">
+              <i class="bi bi-geo-alt"></i> <%= team.city %><br>
+              <i class="bi bi-calendar"></i> Founded: <%= team.founded %><br>
+              <i class="bi bi-person-badge"></i> Players: <%= team.players.count %>
+            </p>
+          </div>
+          <div class="card-footer bg-transparent">
+            <div class="btn-group w-100" role="group">
+              <%= link_to team, class: "btn btn-outline-primary btn-sm" do %>
+                <i class="bi bi-eye"></i> View
+              <% end %>
+              <%= link_to edit_team_path(team), class: "btn btn-outline-secondary btn-sm" do %>
+                <i class="bi bi-pencil"></i> Edit
+              <% end %>
+              <%= link_to team, 
+                  class: "btn btn-outline-danger btn-sm",
+                  data: { 
+                    "turbo-method": :delete,
+                    "turbo-confirm": "Are you sure? This will also delete all players and matches for this team." 
+                  } do %>
+                <i class="bi bi-trash"></i> Delete
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="text-center py-5">
+    <i class="bi bi-people display-1 text-muted"></i>
+    <h3 class="mt-3">No Teams Yet</h3>
+    <p class="text-muted">Get started by adding your first team!</p>
+    <%= link_to "Add First Team", new_team_path, class: "btn btn-primary btn-lg" %>
+  </div>
+<% end %>

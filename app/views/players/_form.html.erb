@@ -1,0 +1,87 @@
+<!-- app/views/players/_form.html.erb -->
+<%= form_with model: [@team, player], local: true, class: "needs-validation", novalidate: true do |form| %>
+  <% if player.errors.any? %>
+    <div class="alert alert-danger">
+      <h5>Please fix the following errors:</h5>
+      <ul class="mb-0">
+        <% player.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="mb-3">
+        <%= form.label :name, class: "form-label" %>
+        <%= form.text_field :name, 
+            class: "form-control #{'is-invalid' if player.errors[:name].any?}",
+            placeholder: "Enter player name",
+            required: true %>
+        <% if player.errors[:name].any? %>
+          <div class="invalid-feedback">
+            <%= player.errors[:name].first %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    
+    <div class="col-md-6">
+      <div class="mb-3">
+        <%= form.label :age, class: "form-label" %>
+        <%= form.number_field :age, 
+            class: "form-control #{'is-invalid' if player.errors[:age].any?}",
+            placeholder: "Enter age",
+            min: 16,
+            max: 45,
+            required: true %>
+        <% if player.errors[:age].any? %>
+          <div class="invalid-feedback">
+            <%= player.errors[:age].first %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-6">
+      <div class="mb-3">
+        <%= form.label :position, class: "form-label" %>
+        <%= form.select :position, 
+            [
+              ['Goalkeeper', 'Goalkeeper'],
+              ['Defender', 'Defender'],
+              ['Midfielder', 'Midfielder'],
+              ['Forward', 'Forward']
+            ],
+            { prompt: "Select Position" },
+            { class: "form-select #{'is-invalid' if player.errors[:position].any?}",
+              required: true } %>
+        <% if player.errors[:position].any? %>
+          <div class="invalid-feedback">
+            <%= player.errors[:position].first %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    
+    <div class="col-md-6">
+      <div class="mb-3">
+        <label class="form-label">&nbsp;</label>
+        <div class="form-control-plaintext">
+          <small class="text-muted">
+            <i class="bi bi-info-circle"></i>
+            Player will be added to <strong><%= @team.name %></strong>
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <%= form.submit "Add Player", class: "btn btn-primary me-2" %>
+    <%= link_to "Cancel", @team, class: "btn btn-secondary" %>
+  </div>
+<% end %>

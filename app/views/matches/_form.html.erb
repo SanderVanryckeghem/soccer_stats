@@ -1,0 +1,136 @@
+<!-- app/views/matches/_form.html.erb -->
+<%= form_with model: match, local: true, class: "needs-validation", novalidate: true do |form| %>
+  <% if match.errors.any? %>
+    <div class="alert alert-danger">
+      <h5>Please fix the following errors:</h5>
+      <ul class="mb-0">
+        <% match.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="mb-3">
+        <%= form.label :home_team_id, "Home Team", class: "form-label" %>
+        <%= form.select :home_team_id, 
+            options_from_collection_for_select(@teams, :id, :name, match.home_team_id),
+            { prompt: "Select Home Team" },
+            { class: "form-select #{'is-invalid' if match.errors[:home_team].any?}",
+              required: true } %>
+        <% if match.errors[:home_team].any? %>
+          <div class="invalid-feedback">
+            <%= match.errors[:home_team].first %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    
+    <div class="col-md-6">
+      <div class="mb-3">
+        <%= form.label :away_team_id, "Away Team", class: "form-label" %>
+        <%= form.select :away_team_id, 
+            options_from_collection_for_select(@teams, :id, :name, match.away_team_id),
+            { prompt: "Select Away Team" },
+            { class: "form-select #{'is-invalid' if match.errors[:away_team].any?}",
+              required: true } %>
+        <% if match.errors[:away_team].any? %>
+          <div class="invalid-feedback">
+            <%= match.errors[:away_team].first %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-6">
+      <div class="mb-3">
+        <%= form.label :match_date, "Match Date & Time", class: "form-label" %>
+        <%= form.datetime_local_field :match_date, 
+            class: "form-control #{'is-invalid' if match.errors[:match_date].any?}",
+            value: (match.match_date&.strftime("%Y-%m-%dT%H:%M") || ""),
+            required: true %>
+        <% if match.errors[:match_date].any? %>
+          <div class="invalid-feedback">
+            <%= match.errors[:match_date].first %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-3">
+      <div class="mb-3">
+        <%= form.label :home_score, "Home Team Score", class: "form-label" %>
+        <%= form.number_field :home_score, 
+            class: "form-control #{'is-invalid' if match.errors[:home_score].any?}",
+            placeholder: "0",
+            min: 0,
+            max: 20,
+            required: true %>
+        <% if match.errors[:home_score].any? %>
+          <div class="invalid-feedback">
+            <%= match.errors[:home_score].first %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    
+    <div class="col-md-3">
+      <div class="mb-3">
+        <%= form.label :away_score, "Away Team Score", class: "form-label" %>
+        <%= form.number_field :away_score, 
+            class: "form-control #{'is-invalid' if match.errors[:away_score].any?}",
+            placeholder: "0",
+            min: 0,
+            max: 20,
+            required: true %>
+        <% if match.errors[:away_score].any? %>
+          <div class="invalid-feedback">
+            <%= match.errors[:away_score].first %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    
+    <div class="col-md-6">
+      <div class="mb-3">
+        <label class="form-label">&nbsp;</label>
+        <div class="form-control-plaintext">
+          <small class="text-muted">
+            <i class="bi bi-info-circle"></i>
+            Enter the final scores for completed matches
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <%= form.submit class: "btn btn-primary me-2" %>
+    <%= link_to "Cancel", match.persisted? ? match : matches_path, class: "btn btn-secondary" %>
+  </div>
+<% end %>
+
+<script>
+  // Simple validation to prevent same team selection
+  document.addEventListener('DOMContentLoaded', function() {
+    const homeSelect = document.getElementById('match_home_team_id');
+    const awaySelect = document.getElementById('match_away_team_id');
+    
+    function validateTeams() {
+      if (homeSelect.value && awaySelect.value && homeSelect.value === awaySelect.value) {
+        awaySelect.setCustomValidity('Away team must be different from home team');
+      } else {
+        awaySelect.setCustomValidity('');
+      }
+    }
+    
+    homeSelect?.addEventListener('change', validateTeams);
+    awaySelect?.addEventListener('change', validateTeams);
+  });
+</script>

@@ -4,7 +4,7 @@ class PlayersController < ApplicationController
   before_action :set_team, only: [:new, :create, :edit, :update]
 
   def index
-    @players = Player.includes(:team).alphabetical
+    @players = Player.includes(:team).order(:name)
     @players = @players.by_position(params[:position]) if params[:position].present?
     @positions = Player.distinct.pluck(:position).compact.sort
   end
