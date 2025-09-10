@@ -1,7 +1,7 @@
 # config/initializers/cors.rb
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'http://localhost:4200'  # Angular default port
+    origins ['http://localhost:4200', 'http://localhost:4201']  # Angular ports
     
     resource '*',
       headers: :any,
