@@ -190,25 +190,6 @@ The backend is configured to accept requests from `http://localhost:4200`. Updat
 - Image uploads for teams and players
 - Match commentary and events
 
-## 🧪 Testing
-
-### Backend Testing
-```bash
-cd soccer-stats-backend
-# Add RSpec or other testing framework
-bundle exec rspec
-```
-
-### Frontend Testing
-```bash
-cd soccer-stats-frontend
-# Run unit tests
-ng test
-
-# Run end-to-end tests
-ng e2e
-```
-
 ## 👨‍💻 Author
 
 **Your Name**
