@@ -1,14 +1,14 @@
 // src/app/components/teams/teams.component.ts
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { TeamService } from '../../services/team';
 import { Team } from '../../models/models';
+import { ApiResponse } from '../../services/api';
 
 @Component({
   selector: 'app-teams',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   template: `
     <div class="row">
       <div class="col-md-12">
@@ -89,8 +89,8 @@ export class TeamsComponent implements OnInit {
     this.loading = true;
     this.error = null;
     
-    this.teamService.getTeams().subscribe({
-      next: (response) => {
+    this.teamService.getAllTeams().subscribe({
+      next: (response: ApiResponse<Team[]>) => {
         if (response.success && response.data) {
           this.teams = response.data;
         } else {
@@ -98,14 +98,14 @@ export class TeamsComponent implements OnInit {
         }
         this.loading = false;
       },
-      error: (error) => {
+      error: (error: Error) => {
         this.error = error.message || 'An error occurred while loading teams';
         this.loading = false;
       }
     });
   }
 
-  trackByTeamId(index: number, team: Team): number {
+  trackByTeamId(_: number, team: Team): number {
     return team.id;
   }
 }
