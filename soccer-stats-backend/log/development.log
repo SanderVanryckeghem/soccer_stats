@@ -5645,3 +5645,284 @@ Processing by Api::V1::TeamsController#show as JSON
 Completed 200 OK in 47ms (Views: 5.9ms | ActiveRecord: 6.7ms (11 queries, 0 cached) | GC: 0.6ms)
 
 
+Started GET "/api/v1/teams/5" for ::1 at 2025-09-12 15:28:14 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC /*application='SoccerStats'*/[0m
+Processing by Api::V1::TeamsController#show as JSON
+  Parameters: {"id" => "5", "team" => {}}
+  [1m[36mTeam Load (4.4ms)[0m  [1m[34mSELECT `teams`.* FROM `teams` WHERE `teams`.`id` = 5 LIMIT 1 /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:97:in 'Api::V1::TeamsController#set_team'
+  [1m[36mMatch Count (3.0ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE ((home_team_id = '5' AND home_score > away_score) OR (away_team_id = '5' AND away_score > home_score)) /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:107:in 'Api::V1::TeamsController#calculate_team_stats'
+  [1m[36mMatch Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE ((home_team_id = '5' OR away_team_id = '5') AND home_score = away_score) /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:108:in 'Api::V1::TeamsController#calculate_team_stats'
+  [1m[36mMatch Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE ((home_team_id = '5' AND home_score < away_score) OR (away_team_id = '5' AND away_score < home_score)) /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:109:in 'Api::V1::TeamsController#calculate_team_stats'
+  [1m[36mMatch Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '5' OR away_team_id = '5') /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:112:in 'Api::V1::TeamsController#calculate_team_stats'
+  [1m[36mMatch Sum (0.6ms)[0m  [1m[34mSELECT SUM(`matches`.`home_score`) FROM `matches` WHERE `matches`.`home_team_id` = 5 /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:123:in 'Api::V1::TeamsController#goals_for'
+  [1m[36mMatch Sum (0.3ms)[0m  [1m[34mSELECT SUM(`matches`.`away_score`) FROM `matches` WHERE `matches`.`away_team_id` = 5 /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:124:in 'Api::V1::TeamsController#goals_for'
+  [1m[36mMatch Sum (0.4ms)[0m  [1m[34mSELECT SUM(`matches`.`away_score`) FROM `matches` WHERE `matches`.`home_team_id` = 5 /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:129:in 'Api::V1::TeamsController#goals_against'
+  [1m[36mMatch Sum (0.2ms)[0m  [1m[34mSELECT SUM(`matches`.`home_score`) FROM `matches` WHERE `matches`.`away_team_id` = 5 /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:130:in 'Api::V1::TeamsController#goals_against'
+  [1m[36mPlayer Load (0.4ms)[0m  [1m[34mSELECT `players`.* FROM `players` WHERE `players`.`team_id` = 5 ORDER BY `players`.`name` ASC /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:31:in 'Enumerable#map'
+  [1m[36mMatch Load (0.8ms)[0m  [1m[34mSELECT `matches`.* FROM `matches` WHERE (home_team_id = '5' OR away_team_id = '5') ORDER BY `matches`.`match_date` DESC LIMIT 5 /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:40:in 'Enumerable#map'
+  [1m[36mTeam Load (0.4ms)[0m  [1m[34mSELECT `teams`.* FROM `teams` WHERE `teams`.`id` IN (4, 5) /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:40:in 'Enumerable#map'
+  [1m[36mTeam Load (0.6ms)[0m  [1m[34mSELECT `teams`.* FROM `teams` WHERE `teams`.`id` IN (5, 6) /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:40:in 'Enumerable#map'
+Completed 200 OK in 129ms (Views: 4.5ms | ActiveRecord: 35.8ms (13 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/dashboard" for ::1 at 2025-09-12 15:28:18 +0200
+Processing by Api::V1::DashboardController#index as JSON
+  Parameters: {"dashboard" => {}}
+  [1m[36mTeam Count (2.4ms)[0m  [1m[34mSELECT COUNT(*) FROM `teams` /*action='index',application='SoccerStats',controller='dashboard'*/[0m
+  ↳ app/controllers/api/v1/dashboard_controller.rb:8:in 'Api::V1::DashboardController#index'
+  [1m[36mPlayer Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM `players` /*action='index',application='SoccerStats',controller='dashboard'*/[0m
+  ↳ app/controllers/api/v1/dashboard_controller.rb:9:in 'Api::V1::DashboardController#index'
+  [1m[36mMatch Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` /*action='index',application='SoccerStats',controller='dashboard'*/[0m
+  ↳ app/controllers/api/v1/dashboard_controller.rb:10:in 'Api::V1::DashboardController#index'
+  [1m[36mMatch Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM `matches` LIMIT 5) subquery_for_count /*action='index',application='SoccerStats',controller='dashboard'*/[0m
+  ↳ app/controllers/api/v1/dashboard_controller.rb:11:in 'Api::V1::DashboardController#index'
+  [1m[36mMatch Load (1.8ms)[0m  [1m[34mSELECT `matches`.* FROM `matches` ORDER BY `matches`.`match_date` DESC LIMIT 5 /*action='index',application='SoccerStats',controller='dashboard'*/[0m
+  ↳ app/controllers/api/v1/dashboard_controller.rb:13:in 'Enumerable#map'
+  [1m[36mTeam Load (0.4ms)[0m  [1m[34mSELECT `teams`.* FROM `teams` WHERE `teams`.`id` IN (7, 8, 4, 5) /*action='index',application='SoccerStats',controller='dashboard'*/[0m
+  ↳ app/controllers/api/v1/dashboard_controller.rb:13:in 'Enumerable#map'
+  [1m[36mTeam Load (0.3ms)[0m  [1m[34mSELECT `teams`.* FROM `teams` WHERE `teams`.`id` IN (10, 5, 6) /*action='index',application='SoccerStats',controller='dashboard'*/[0m
+  ↳ app/controllers/api/v1/dashboard_controller.rb:13:in 'Enumerable#map'
+  [1m[36mPlayer Load (0.4ms)[0m  [1m[34mSELECT `players`.* FROM `players` INNER JOIN `teams` ON `teams`.`id` = `players`.`team_id` LIMIT 5 /*action='index',application='SoccerStats',controller='dashboard'*/[0m
+  ↳ app/controllers/api/v1/dashboard_controller.rb:24:in 'Enumerable#map'
+  [1m[36mTeam Load (0.4ms)[0m  [1m[34mSELECT `teams`.* FROM `teams` WHERE `teams`.`id` = 1 LIMIT 1 /*action='index',application='SoccerStats',controller='dashboard'*/[0m
+  ↳ app/controllers/api/v1/dashboard_controller.rb:29:in 'block in Api::V1::DashboardController#index'
+  [1m[36mTeam Load (0.3ms)[0m  [1m[34mSELECT `teams`.* FROM `teams` WHERE `teams`.`id` = 2 LIMIT 1 /*action='index',application='SoccerStats',controller='dashboard'*/[0m
+  ↳ app/controllers/api/v1/dashboard_controller.rb:29:in 'block in Api::V1::DashboardController#index'
+  [1m[36mTeam Load (0.2ms)[0m  [1m[34mSELECT `teams`.* FROM `teams` WHERE `teams`.`id` = 4 LIMIT 1 /*action='index',application='SoccerStats',controller='dashboard'*/[0m
+  ↳ app/controllers/api/v1/dashboard_controller.rb:29:in 'block in Api::V1::DashboardController#index'
+  [1m[36mCACHE Team Load (0.3ms)[0m  [1m[34mSELECT `teams`.* FROM `teams` WHERE `teams`.`id` = 4 LIMIT 1[0m
+  ↳ app/controllers/api/v1/dashboard_controller.rb:29:in 'block in Api::V1::DashboardController#index'
+  [1m[36mCACHE Team Load (0.0ms)[0m  [1m[34mSELECT `teams`.* FROM `teams` WHERE `teams`.`id` = 4 LIMIT 1[0m
+  ↳ app/controllers/api/v1/dashboard_controller.rb:29:in 'block in Api::V1::DashboardController#index'
+Completed 200 OK in 50ms (Views: 0.4ms | ActiveRecord: 6.7ms (13 queries, 2 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/matches/1" for ::1 at 2025-09-12 15:28:24 +0200
+Processing by Api::V1::MatchesController#show as JSON
+  Parameters: {"id" => "1", "match" => {}}
+  [1m[36mMatch Load (1.0ms)[0m  [1m[34mSELECT `matches`.* FROM `matches` WHERE `matches`.`id` = 1 LIMIT 1 /*action='show',application='SoccerStats',controller='matches'*/[0m
+  ↳ app/controllers/api/v1/matches_controller.rb:115:in 'Api::V1::MatchesController#set_match'
+  [1m[36mTeam Load (0.2ms)[0m  [1m[34mSELECT `teams`.* FROM `teams` WHERE `teams`.`id` = 7 LIMIT 1 /*action='show',application='SoccerStats',controller='matches'*/[0m
+  ↳ app/controllers/api/v1/matches_controller.rb:43:in 'Api::V1::MatchesController#show'
+  [1m[36mTeam Load (0.2ms)[0m  [1m[34mSELECT `teams`.* FROM `teams` WHERE `teams`.`id` = 10 LIMIT 1 /*action='show',application='SoccerStats',controller='matches'*/[0m
+  ↳ app/controllers/api/v1/matches_controller.rb:48:in 'Api::V1::MatchesController#show'
+Completed 200 OK in 10ms (Views: 0.5ms | ActiveRecord: 1.4ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/teams/10" for ::1 at 2025-09-12 15:28:27 +0200
+Processing by Api::V1::TeamsController#show as JSON
+  Parameters: {"id" => "10", "team" => {}}
+  [1m[36mTeam Load (0.4ms)[0m  [1m[34mSELECT `teams`.* FROM `teams` WHERE `teams`.`id` = 10 LIMIT 1 /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:97:in 'Api::V1::TeamsController#set_team'
+  [1m[36mMatch Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE ((home_team_id = '10' AND home_score > away_score) OR (away_team_id = '10' AND away_score > home_score)) /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:107:in 'Api::V1::TeamsController#calculate_team_stats'
+  [1m[36mMatch Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE ((home_team_id = '10' OR away_team_id = '10') AND home_score = away_score) /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:108:in 'Api::V1::TeamsController#calculate_team_stats'
+  [1m[36mMatch Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE ((home_team_id = '10' AND home_score < away_score) OR (away_team_id = '10' AND away_score < home_score)) /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:109:in 'Api::V1::TeamsController#calculate_team_stats'
+  [1m[36mMatch Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '10' OR away_team_id = '10') /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:112:in 'Api::V1::TeamsController#calculate_team_stats'
+  [1m[36mMatch Sum (0.2ms)[0m  [1m[34mSELECT SUM(`matches`.`home_score`) FROM `matches` WHERE `matches`.`home_team_id` = 10 /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:123:in 'Api::V1::TeamsController#goals_for'
+  [1m[36mMatch Sum (0.2ms)[0m  [1m[34mSELECT SUM(`matches`.`away_score`) FROM `matches` WHERE `matches`.`away_team_id` = 10 /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:124:in 'Api::V1::TeamsController#goals_for'
+  [1m[36mMatch Sum (0.3ms)[0m  [1m[34mSELECT SUM(`matches`.`away_score`) FROM `matches` WHERE `matches`.`home_team_id` = 10 /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:129:in 'Api::V1::TeamsController#goals_against'
+  [1m[36mMatch Sum (0.1ms)[0m  [1m[34mSELECT SUM(`matches`.`home_score`) FROM `matches` WHERE `matches`.`away_team_id` = 10 /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:130:in 'Api::V1::TeamsController#goals_against'
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT `players`.* FROM `players` WHERE `players`.`team_id` = 10 ORDER BY `players`.`name` ASC /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:31:in 'Enumerable#map'
+  [1m[36mMatch Load (0.3ms)[0m  [1m[34mSELECT `matches`.* FROM `matches` WHERE (home_team_id = '10' OR away_team_id = '10') ORDER BY `matches`.`match_date` DESC LIMIT 5 /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:40:in 'Enumerable#map'
+  [1m[36mTeam Load (0.2ms)[0m  [1m[34mSELECT `teams`.* FROM `teams` WHERE `teams`.`id` IN (7, 8) /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:40:in 'Enumerable#map'
+  [1m[36mTeam Load (0.2ms)[0m  [1m[34mSELECT `teams`.* FROM `teams` WHERE `teams`.`id` = 10 /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:40:in 'Enumerable#map'
+Completed 200 OK in 43ms (Views: 0.7ms | ActiveRecord: 3.4ms (13 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/teams/10" for ::1 at 2025-09-12 15:28:30 +0200
+Processing by Api::V1::TeamsController#show as JSON
+  Parameters: {"id" => "10", "team" => {}}
+  [1m[36mTeam Load (0.3ms)[0m  [1m[34mSELECT `teams`.* FROM `teams` WHERE `teams`.`id` = 10 LIMIT 1 /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:97:in 'Api::V1::TeamsController#set_team'
+  [1m[36mMatch Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE ((home_team_id = '10' AND home_score > away_score) OR (away_team_id = '10' AND away_score > home_score)) /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:107:in 'Api::V1::TeamsController#calculate_team_stats'
+  [1m[36mMatch Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE ((home_team_id = '10' OR away_team_id = '10') AND home_score = away_score) /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:108:in 'Api::V1::TeamsController#calculate_team_stats'
+  [1m[36mMatch Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE ((home_team_id = '10' AND home_score < away_score) OR (away_team_id = '10' AND away_score < home_score)) /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:109:in 'Api::V1::TeamsController#calculate_team_stats'
+  [1m[36mMatch Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '10' OR away_team_id = '10') /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:112:in 'Api::V1::TeamsController#calculate_team_stats'
+  [1m[36mMatch Sum (0.2ms)[0m  [1m[34mSELECT SUM(`matches`.`home_score`) FROM `matches` WHERE `matches`.`home_team_id` = 10 /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:123:in 'Api::V1::TeamsController#goals_for'
+  [1m[36mMatch Sum (0.2ms)[0m  [1m[34mSELECT SUM(`matches`.`away_score`) FROM `matches` WHERE `matches`.`away_team_id` = 10 /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:124:in 'Api::V1::TeamsController#goals_for'
+  [1m[36mMatch Sum (0.1ms)[0m  [1m[34mSELECT SUM(`matches`.`away_score`) FROM `matches` WHERE `matches`.`home_team_id` = 10 /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:129:in 'Api::V1::TeamsController#goals_against'
+  [1m[36mMatch Sum (0.1ms)[0m  [1m[34mSELECT SUM(`matches`.`home_score`) FROM `matches` WHERE `matches`.`away_team_id` = 10 /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:130:in 'Api::V1::TeamsController#goals_against'
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT `players`.* FROM `players` WHERE `players`.`team_id` = 10 ORDER BY `players`.`name` ASC /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:31:in 'Enumerable#map'
+  [1m[36mMatch Load (0.3ms)[0m  [1m[34mSELECT `matches`.* FROM `matches` WHERE (home_team_id = '10' OR away_team_id = '10') ORDER BY `matches`.`match_date` DESC LIMIT 5 /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:40:in 'Enumerable#map'
+  [1m[36mTeam Load (0.1ms)[0m  [1m[34mSELECT `teams`.* FROM `teams` WHERE `teams`.`id` IN (7, 8) /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:40:in 'Enumerable#map'
+  [1m[36mTeam Load (0.1ms)[0m  [1m[34mSELECT `teams`.* FROM `teams` WHERE `teams`.`id` = 10 /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:40:in 'Enumerable#map'
+Completed 200 OK in 15ms (Views: 0.2ms | ActiveRecord: 2.8ms (13 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/players" for ::1 at 2025-09-12 15:28:37 +0200
+Processing by Api::V1::PlayersController#index as JSON
+  Parameters: {"player" => {}}
+  [1m[36mPlayer Load (0.4ms)[0m  [1m[34mSELECT `players`.* FROM `players` ORDER BY `players`.`name` ASC /*action='index',application='SoccerStats',controller='players'*/[0m
+  ↳ app/controllers/api/v1/players_controller.rb:10:in 'Enumerable#map'
+  [1m[36mTeam Load (0.3ms)[0m  [1m[34mSELECT `teams`.* FROM `teams` WHERE `teams`.`id` IN (4, 10, 8, 5, 1, 2) /*action='index',application='SoccerStats',controller='players'*/[0m
+  ↳ app/controllers/api/v1/players_controller.rb:10:in 'Enumerable#map'
+  [1m[36mPlayer Pluck (0.7ms)[0m  [1m[34mSELECT DISTINCT `players`.`position` FROM `players` /*action='index',application='SoccerStats',controller='players'*/[0m
+  ↳ app/controllers/api/v1/players_controller.rb:28:in 'Api::V1::PlayersController#index'
+Completed 200 OK in 12ms (Views: 0.8ms | ActiveRecord: 1.3ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/teams" for ::1 at 2025-09-12 15:28:39 +0200
+Processing by Api::V1::TeamsController#index as JSON
+  Parameters: {"team" => {}}
+  [1m[36mTeam Load (0.3ms)[0m  [1m[34mSELECT `teams`.* FROM `teams` ORDER BY `teams`.`name` ASC /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:8:in 'Enumerable#map'
+  [1m[36mPlayer Load (0.3ms)[0m  [1m[34mSELECT `players`.* FROM `players` WHERE `players`.`team_id` IN (3, 4, 8, 10, 9, 7, 6, 5, 1, 2) /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:8:in 'Enumerable#map'
+  [1m[36mPlayer Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM `players` WHERE `players`.`team_id` = 3 /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:14:in 'block in Api::V1::TeamsController#index'
+  [1m[36mPlayer Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM `players` WHERE `players`.`team_id` = 4 /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:14:in 'block in Api::V1::TeamsController#index'
+  [1m[36mPlayer Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `players` WHERE `players`.`team_id` = 8 /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:14:in 'block in Api::V1::TeamsController#index'
+  [1m[36mPlayer Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM `players` WHERE `players`.`team_id` = 10 /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:14:in 'block in Api::V1::TeamsController#index'
+  [1m[36mPlayer Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM `players` WHERE `players`.`team_id` = 9 /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:14:in 'block in Api::V1::TeamsController#index'
+  [1m[36mPlayer Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM `players` WHERE `players`.`team_id` = 7 /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:14:in 'block in Api::V1::TeamsController#index'
+  [1m[36mPlayer Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM `players` WHERE `players`.`team_id` = 6 /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:14:in 'block in Api::V1::TeamsController#index'
+  [1m[36mPlayer Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM `players` WHERE `players`.`team_id` = 5 /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:14:in 'block in Api::V1::TeamsController#index'
+  [1m[36mPlayer Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM `players` WHERE `players`.`team_id` = 1 /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:14:in 'block in Api::V1::TeamsController#index'
+  [1m[36mPlayer Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM `players` WHERE `players`.`team_id` = 2 /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:14:in 'block in Api::V1::TeamsController#index'
+Completed 200 OK in 26ms (Views: 0.1ms | ActiveRecord: 2.2ms (12 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/players" for ::1 at 2025-09-12 15:28:41 +0200
+Processing by Api::V1::PlayersController#index as JSON
+  Parameters: {"player" => {}}
+  [1m[36mPlayer Load (0.3ms)[0m  [1m[34mSELECT `players`.* FROM `players` ORDER BY `players`.`name` ASC /*action='index',application='SoccerStats',controller='players'*/[0m
+  ↳ app/controllers/api/v1/players_controller.rb:10:in 'Enumerable#map'
+  [1m[36mTeam Load (0.4ms)[0m  [1m[34mSELECT `teams`.* FROM `teams` WHERE `teams`.`id` IN (4, 10, 8, 5, 1, 2) /*action='index',application='SoccerStats',controller='players'*/[0m
+  ↳ app/controllers/api/v1/players_controller.rb:10:in 'Enumerable#map'
+  [1m[36mPlayer Pluck (0.3ms)[0m  [1m[34mSELECT DISTINCT `players`.`position` FROM `players` /*action='index',application='SoccerStats',controller='players'*/[0m
+  ↳ app/controllers/api/v1/players_controller.rb:28:in 'Api::V1::PlayersController#index'
+Completed 200 OK in 7ms (Views: 0.5ms | ActiveRecord: 0.9ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/teams" for ::1 at 2025-09-12 15:28:42 +0200
+Processing by Api::V1::TeamsController#index as JSON
+  Parameters: {"team" => {}}
+  [1m[36mTeam Load (0.4ms)[0m  [1m[34mSELECT `teams`.* FROM `teams` ORDER BY `teams`.`name` ASC /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:8:in 'Enumerable#map'
+  [1m[36mPlayer Load (0.5ms)[0m  [1m[34mSELECT `players`.* FROM `players` WHERE `players`.`team_id` IN (3, 4, 8, 10, 9, 7, 6, 5, 1, 2) /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:8:in 'Enumerable#map'
+  [1m[36mPlayer Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `players` WHERE `players`.`team_id` = 3 /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:14:in 'block in Api::V1::TeamsController#index'
+  [1m[36mPlayer Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `players` WHERE `players`.`team_id` = 4 /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:14:in 'block in Api::V1::TeamsController#index'
+  [1m[36mPlayer Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM `players` WHERE `players`.`team_id` = 8 /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:14:in 'block in Api::V1::TeamsController#index'
+  [1m[36mPlayer Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `players` WHERE `players`.`team_id` = 10 /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:14:in 'block in Api::V1::TeamsController#index'
+  [1m[36mPlayer Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM `players` WHERE `players`.`team_id` = 9 /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:14:in 'block in Api::V1::TeamsController#index'
+  [1m[36mPlayer Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `players` WHERE `players`.`team_id` = 7 /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:14:in 'block in Api::V1::TeamsController#index'
+  [1m[36mPlayer Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `players` WHERE `players`.`team_id` = 6 /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:14:in 'block in Api::V1::TeamsController#index'
+  [1m[36mPlayer Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM `players` WHERE `players`.`team_id` = 5 /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:14:in 'block in Api::V1::TeamsController#index'
+  [1m[36mPlayer Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM `players` WHERE `players`.`team_id` = 1 /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:14:in 'block in Api::V1::TeamsController#index'
+  [1m[36mPlayer Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM `players` WHERE `players`.`team_id` = 2 /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:14:in 'block in Api::V1::TeamsController#index'
+Completed 200 OK in 26ms (Views: 0.1ms | ActiveRecord: 2.4ms (12 queries, 0 cached) | GC: 9.4ms)
+
+
+Started GET "/api/v1/teams/2" for ::1 at 2025-09-12 15:29:58 +0200
+Processing by Api::V1::TeamsController#show as JSON
+  Parameters: {"id" => "2", "team" => {}}
+  [1m[36mTeam Load (0.3ms)[0m  [1m[34mSELECT `teams`.* FROM `teams` WHERE `teams`.`id` = 2 LIMIT 1 /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:97:in 'Api::V1::TeamsController#set_team'
+  [1m[36mMatch Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE ((home_team_id = '2' AND home_score > away_score) OR (away_team_id = '2' AND away_score > home_score)) /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:107:in 'Api::V1::TeamsController#calculate_team_stats'
+  [1m[36mMatch Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE ((home_team_id = '2' OR away_team_id = '2') AND home_score = away_score) /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:108:in 'Api::V1::TeamsController#calculate_team_stats'
+  [1m[36mMatch Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE ((home_team_id = '2' AND home_score < away_score) OR (away_team_id = '2' AND away_score < home_score)) /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:109:in 'Api::V1::TeamsController#calculate_team_stats'
+  [1m[36mMatch Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '2' OR away_team_id = '2') /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:112:in 'Api::V1::TeamsController#calculate_team_stats'
+  [1m[36mMatch Sum (0.2ms)[0m  [1m[34mSELECT SUM(`matches`.`home_score`) FROM `matches` WHERE `matches`.`home_team_id` = 2 /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:123:in 'Api::V1::TeamsController#goals_for'
+  [1m[36mMatch Sum (0.2ms)[0m  [1m[34mSELECT SUM(`matches`.`away_score`) FROM `matches` WHERE `matches`.`away_team_id` = 2 /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:124:in 'Api::V1::TeamsController#goals_for'
+  [1m[36mMatch Sum (0.1ms)[0m  [1m[34mSELECT SUM(`matches`.`away_score`) FROM `matches` WHERE `matches`.`home_team_id` = 2 /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:129:in 'Api::V1::TeamsController#goals_against'
+  [1m[36mMatch Sum (0.1ms)[0m  [1m[34mSELECT SUM(`matches`.`home_score`) FROM `matches` WHERE `matches`.`away_team_id` = 2 /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:130:in 'Api::V1::TeamsController#goals_against'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT `players`.* FROM `players` WHERE `players`.`team_id` = 2 ORDER BY `players`.`name` ASC /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:31:in 'Enumerable#map'
+  [1m[36mMatch Load (0.2ms)[0m  [1m[34mSELECT `matches`.* FROM `matches` WHERE (home_team_id = '2' OR away_team_id = '2') ORDER BY `matches`.`match_date` DESC LIMIT 5 /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:40:in 'Enumerable#map'
+Completed 200 OK in 12ms (Views: 0.3ms | ActiveRecord: 1.8ms (11 queries, 0 cached) | GC: 0.6ms)
+
+
+Started GET "/api/v1/teams/2" for ::1 at 2025-09-12 15:30:00 +0200
+Processing by Api::V1::TeamsController#show as JSON
+  Parameters: {"id" => "2", "team" => {}}
+  [1m[36mTeam Load (0.3ms)[0m  [1m[34mSELECT `teams`.* FROM `teams` WHERE `teams`.`id` = 2 LIMIT 1 /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:97:in 'Api::V1::TeamsController#set_team'
+  [1m[36mMatch Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE ((home_team_id = '2' AND home_score > away_score) OR (away_team_id = '2' AND away_score > home_score)) /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:107:in 'Api::V1::TeamsController#calculate_team_stats'
+  [1m[36mMatch Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE ((home_team_id = '2' OR away_team_id = '2') AND home_score = away_score) /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:108:in 'Api::V1::TeamsController#calculate_team_stats'
+  [1m[36mMatch Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE ((home_team_id = '2' AND home_score < away_score) OR (away_team_id = '2' AND away_score < home_score)) /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:109:in 'Api::V1::TeamsController#calculate_team_stats'
+  [1m[36mMatch Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '2' OR away_team_id = '2') /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:112:in 'Api::V1::TeamsController#calculate_team_stats'
+  [1m[36mMatch Sum (0.2ms)[0m  [1m[34mSELECT SUM(`matches`.`home_score`) FROM `matches` WHERE `matches`.`home_team_id` = 2 /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:123:in 'Api::V1::TeamsController#goals_for'
+  [1m[36mMatch Sum (0.1ms)[0m  [1m[34mSELECT SUM(`matches`.`away_score`) FROM `matches` WHERE `matches`.`away_team_id` = 2 /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:124:in 'Api::V1::TeamsController#goals_for'
+  [1m[36mMatch Sum (0.1ms)[0m  [1m[34mSELECT SUM(`matches`.`away_score`) FROM `matches` WHERE `matches`.`home_team_id` = 2 /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:129:in 'Api::V1::TeamsController#goals_against'
+  [1m[36mMatch Sum (0.1ms)[0m  [1m[34mSELECT SUM(`matches`.`home_score`) FROM `matches` WHERE `matches`.`away_team_id` = 2 /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:130:in 'Api::V1::TeamsController#goals_against'
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT `players`.* FROM `players` WHERE `players`.`team_id` = 2 ORDER BY `players`.`name` ASC /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:31:in 'Enumerable#map'
+  [1m[36mMatch Load (0.4ms)[0m  [1m[34mSELECT `matches`.* FROM `matches` WHERE (home_team_id = '2' OR away_team_id = '2') ORDER BY `matches`.`match_date` DESC LIMIT 5 /*action='show',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:40:in 'Enumerable#map'
+Completed 200 OK in 8ms (Views: 0.2ms | ActiveRecord: 2.0ms (11 queries, 0 cached) | GC: 0.7ms)
+
+
