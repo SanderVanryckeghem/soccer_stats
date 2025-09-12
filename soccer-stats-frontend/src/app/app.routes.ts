@@ -61,5 +61,8 @@ export const routes: Routes = [
     loadComponent: () => import('./components/stats/stats').then(m => m.StatsComponent)
   },
   { path: '**', redirectTo: '/dashboard' },
-  { path: 'ai-simulation', component: AiSimulationComponent }
+  {
+    path: 'ai-simulation', 
+    loadComponent: () => import('./components/ai-simulation/ai-simulation').then(m => m.AiSimulationComponent)
+  },
 ];
