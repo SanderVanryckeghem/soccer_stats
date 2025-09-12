@@ -33,8 +33,9 @@ class AiMatchSimulator
   def simulate_season_matches(teams)
     results = []
     
-    # Generate all possible team combinations
-    teams.combination(2).each do |home_team, away_team|
+    # Convert ActiveRecord relation to Array and generate all possible team combinations
+    teams_array = teams.to_a
+    teams_array.combination(2).each do |home_team, away_team|
       # Simulate both home and away fixtures
       [
         { home: home_team, away: away_team },
