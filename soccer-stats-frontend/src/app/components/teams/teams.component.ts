@@ -1,6 +1,7 @@
 // src/app/components/teams/teams.component.ts
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router'; // Add RouterLink import
 import { TeamService } from '../../services/team';
 import { Team } from '../../models/models';
 import { ApiResponse } from '../../services/api';
@@ -8,7 +9,7 @@ import { ApiResponse } from '../../services/api';
 @Component({
   selector: 'app-teams',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink], // Add RouterLink to imports
   template: `
     <div class="row">
       <div class="col-md-12">
@@ -57,14 +58,14 @@ import { ApiResponse } from '../../services/api';
                 {{ team.players_count }} players
               </p>
               <div class="d-flex justify-content-between">
-                <button class="btn btn-outline-primary btn-sm">
+                <a [routerLink]="['/teams', team.id]" class="btn btn-outline-primary btn-sm">
                   <i class="fas fa-eye me-1"></i>
                   View Details
-                </button>
-                <button class="btn btn-outline-secondary btn-sm">
+                </a>
+                <a [routerLink]="['/teams', team.id, 'edit']" class="btn btn-outline-secondary btn-sm">
                   <i class="fas fa-edit me-1"></i>
                   Edit
-                </button>
+                </a>
               </div>
             </div>
           </div>
