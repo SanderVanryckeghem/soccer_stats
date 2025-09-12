@@ -21,6 +21,10 @@ import { ApiResponse } from '../../services/api';
         <i class="fas fa-plus me-1"></i>
         Schedule New Match
       </a>
+      <a routerLink="/ai-simulation" class="btn btn-primary">
+        <i class="fas fa-robot me-1"></i>
+        AI Match Simulation
+      </a>
     </div>
 
     <!-- Filter -->
