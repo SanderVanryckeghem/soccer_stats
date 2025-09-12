@@ -60,9 +60,9 @@ export const routes: Routes = [
     path: 'stats', 
     loadComponent: () => import('./components/stats/stats').then(m => m.StatsComponent)
   },
-  { path: '**', redirectTo: '/dashboard' },
-  {
+  { 
     path: 'ai-simulation', 
     loadComponent: () => import('./components/ai-simulation/ai-simulation').then(m => m.AiSimulationComponent)
   },
+  { path: '**', redirectTo: '/dashboard' },
 ];
