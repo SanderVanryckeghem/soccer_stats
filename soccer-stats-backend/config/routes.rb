@@ -36,6 +36,16 @@ Rails.application.routes.draw do
       resources :teams do
         resources :players, except: [:index, :show]
       end
+
+      # AI Simulation routes
+      resources :ai_matches, only: [] do
+        collection do
+          post :simulate_match
+          post :simulate_season
+          get :preview_simulation
+          get :team_strength
+        end
+      end  
       
       # Players
       resources :players, only: [:index, :show, :update, :destroy]

@@ -1,5 +1,6 @@
 // src/app/app.routes.ts
 import { Routes } from '@angular/router';
+import { AiSimulationComponent } from './components/ai-simulation/ai-simulation';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -59,5 +60,6 @@ export const routes: Routes = [
     path: 'stats', 
     loadComponent: () => import('./components/stats/stats').then(m => m.StatsComponent)
   },
-  { path: '**', redirectTo: '/dashboard' }
+  { path: '**', redirectTo: '/dashboard' },
+  { path: 'ai-simulation', component: AiSimulationComponent }
 ];
