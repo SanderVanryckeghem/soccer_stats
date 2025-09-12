@@ -83,15 +83,19 @@ class AiMatchSimulator
   end
 
   def get_team_stats(team)
-    matches = team.all_matches
-    wins = team.wins.count
-    draws = team.draws.count
-    losses = team.losses.count
-    goals_for = calculate_goals_for(team)
-    goals_against = calculate_goals_against(team)
+    home_matches = team.home_matches
+    away_matches = team.away_matches
+    all_matches = Match.where('home_team_id = ? OR away_team_id = ?', team.id, team.id)
+    
+    wins = all_matches.where('(home_team_id = ? AND home_score > away_score) OR (away_team_id = ? AND away_score > home_score)', team.id, team.id).count
+    draws = all_matches.where('home_score = away_score').count
+    losses = all_matches.count - wins - draws
+    
+    goals_for = (home_matches.sum(:home_score) || 0) + (away_matches.sum(:away_score) || 0)
+    goals_against = (home_matches.sum(:away_score) || 0) + (away_matches.sum(:home_score) || 0)
     
     {
-      matches_played: matches.count,
+      matches_played: all_matches.count,
       wins: wins,
       draws: draws,
       losses: losses,
@@ -100,16 +104,6 @@ class AiMatchSimulator
       goals_against: goals_against,
       goal_difference: goals_for - goals_against
     }
-  end
-
-  def calculate_goals_for(team)
-    (team.home_matches.sum(:home_score) || 0) + 
-    (team.away_matches.sum(:away_score) || 0)
-  end
-
-  def calculate_goals_against(team)
-    (team.home_matches.sum(:away_score) || 0) + 
-    (team.away_matches.sum(:home_score) || 0)
   end
 
   def calculate_win_probabilities(home_strength, away_strength)
@@ -251,6 +245,6 @@ class AiMatchSimulator
     start_date = Time.current + 1.week
     end_date = start_date + 6.months
     
-    Time.at(@random.rand(start_date.to_f..end_date.to_f)).strftime('%Y-%m-%d %H:%M:%S')
+    Time.at(@random.rand(start_date.to_f..end_date.to_f))
   end
 end

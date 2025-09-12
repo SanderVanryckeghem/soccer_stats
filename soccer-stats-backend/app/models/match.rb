@@ -1,3 +1,4 @@
+# app/models/match.rb
 class Match < ApplicationRecord
   belongs_to :home_team, class_name: 'Team'
   belongs_to :away_team, class_name: 'Team'
@@ -6,7 +7,6 @@ class Match < ApplicationRecord
   validates :home_score, :away_score, presence: true, numericality: { greater_than_or_equal_to: 0, less_than: 50 }
   
   validate :different_teams
-  validate :match_date_not_in_future
   
   # Scopes
   scope :recent, -> { order(match_date: :desc) }
@@ -38,7 +38,4 @@ class Match < ApplicationRecord
     errors.add(:away_team, "can't be the same as home team") if home_team_id == away_team_id
   end
   
-  def match_date_not_in_future
-    errors.add(:match_date, "can't be in the future") if match_date && match_date > Time.current
-  end
 end

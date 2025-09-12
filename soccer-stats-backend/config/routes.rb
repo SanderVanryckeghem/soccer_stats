@@ -1,17 +1,3 @@
-# Rails.application.routes.draw do
-#   root 'dashboard#index'
-  
-#   resources :teams do
-#     resources :players, except: [:index]
-#   end
-  
-#   resources :matches
-#   resources :players, only: [:index, :show]
-  
-#   # Dashboard routes
-#   get 'stats', to: 'dashboard#stats'
-# end
-
 # config/routes.rb
 Rails.application.routes.draw do
   # Keep your existing web routes for now
@@ -36,8 +22,14 @@ Rails.application.routes.draw do
       resources :teams do
         resources :players, except: [:index, :show]
       end
-
-      # AI Simulation routes
+      
+      # Players
+      resources :players, only: [:index, :show, :update, :destroy]
+      
+      # Matches
+      resources :matches
+      
+      # AI Simulation routes - ADD THESE LINES
       resources :ai_matches, only: [] do
         collection do
           post :simulate_match
@@ -45,13 +37,7 @@ Rails.application.routes.draw do
           get :preview_simulation
           get :team_strength
         end
-      end  
-      
-      # Players
-      resources :players, only: [:index, :show, :update, :destroy]
-      
-      # Matches
-      resources :matches
+      end
     end
   end
 end

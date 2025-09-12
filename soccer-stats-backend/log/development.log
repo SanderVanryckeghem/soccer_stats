@@ -6831,3 +6831,286 @@ Processing by Api::V1::DashboardController#index as JSON
 Completed 200 OK in 26ms (Views: 0.1ms | ActiveRecord: 3.3ms (13 queries, 2 cached) | GC: 0.0ms)
 
 
+Started GET "/api/v1/teams" for ::1 at 2025-09-12 16:18:06 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC /*application='SoccerStats'*/[0m
+Processing by Api::V1::TeamsController#index as JSON
+  Parameters: {"team" => {}}
+  [1m[36mTeam Load (3.3ms)[0m  [1m[34mSELECT `teams`.* FROM `teams` ORDER BY `teams`.`name` ASC /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:8:in 'Enumerable#map'
+  [1m[36mPlayer Load (0.3ms)[0m  [1m[34mSELECT `players`.* FROM `players` WHERE `players`.`team_id` IN (3, 4, 8, 10, 9, 7, 6, 5, 1, 2) /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:8:in 'Enumerable#map'
+  [1m[36mPlayer Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `players` WHERE `players`.`team_id` = 3 /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:14:in 'block in Api::V1::TeamsController#index'
+  [1m[36mPlayer Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `players` WHERE `players`.`team_id` = 4 /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:14:in 'block in Api::V1::TeamsController#index'
+  [1m[36mPlayer Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `players` WHERE `players`.`team_id` = 8 /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:14:in 'block in Api::V1::TeamsController#index'
+  [1m[36mPlayer Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `players` WHERE `players`.`team_id` = 10 /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:14:in 'block in Api::V1::TeamsController#index'
+  [1m[36mPlayer Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `players` WHERE `players`.`team_id` = 9 /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:14:in 'block in Api::V1::TeamsController#index'
+  [1m[36mPlayer Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `players` WHERE `players`.`team_id` = 7 /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:14:in 'block in Api::V1::TeamsController#index'
+  [1m[36mPlayer Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `players` WHERE `players`.`team_id` = 6 /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:14:in 'block in Api::V1::TeamsController#index'
+  [1m[36mPlayer Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM `players` WHERE `players`.`team_id` = 5 /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:14:in 'block in Api::V1::TeamsController#index'
+  [1m[36mPlayer Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `players` WHERE `players`.`team_id` = 1 /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:14:in 'block in Api::V1::TeamsController#index'
+  [1m[36mPlayer Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `players` WHERE `players`.`team_id` = 2 /*action='index',application='SoccerStats',controller='teams'*/[0m
+  ↳ app/controllers/api/v1/teams_controller.rb:14:in 'block in Api::V1::TeamsController#index'
+Completed 200 OK in 88ms (Views: 4.3ms | ActiveRecord: 19.6ms (12 queries, 0 cached) | GC: 0.9ms)
+
+
+Started GET "/api/v1/ai_matches/team_strength?team_id=8" for ::1 at 2025-09-12 16:18:11 +0200
+Started GET "/api/v1/ai_matches/team_strength?team_id=10" for ::1 at 2025-09-12 16:18:11 +0200
+Processing by Api::V1::AiMatchesController#team_strength as JSON
+  Parameters: {"team_id" => "10", "ai_match" => {}}
+Processing by Api::V1::AiMatchesController#team_strength as JSON
+  Parameters: {"team_id" => "8", "ai_match" => {}}
+  [1m[36mTeam Load (5.8ms)[0m  [1m[34mSELECT `teams`.* FROM `teams` WHERE `teams`.`id` = 10 LIMIT 1 /*action='team_strength',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/controllers/api/v1/ai_matches_controller.rb:115:in 'Api::V1::AiMatchesController#team_strength'
+  [1m[36mTeam Load (8.0ms)[0m  [1m[34mSELECT `teams`.* FROM `teams` WHERE `teams`.`id` = 8 LIMIT 1 /*action='team_strength',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/controllers/api/v1/ai_matches_controller.rb:115:in 'Api::V1::AiMatchesController#team_strength'
+  [1m[36mMatch Count (1.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '10' OR away_team_id = '10') AND ((home_team_id = '10' AND home_score > away_score) OR (away_team_id = '10' AND away_score > home_score)) /*action='team_strength',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:90:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Count (2.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '8' OR away_team_id = '8') AND ((home_team_id = '8' AND home_score > away_score) OR (away_team_id = '8' AND away_score > home_score)) /*action='team_strength',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:90:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Count (2.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '10' OR away_team_id = '10') AND (home_score = away_score) /*action='team_strength',application='SoccerStats',controller='ai_matches'*/[0m
+  [1m[36mMatch Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '8' OR away_team_id = '8') AND (home_score = away_score) /*action='team_strength',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:91:in 'AiMatchSimulator#get_team_stats'
+  ↳ app/services/ai_match_simulator.rb:91:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Count (2.7ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '10' OR away_team_id = '10') /*action='team_strength',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:92:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Count (3.0ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '8' OR away_team_id = '8') /*action='team_strength',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:92:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Sum (0.6ms)[0m  [1m[34mSELECT SUM(`matches`.`home_score`) FROM `matches` WHERE `matches`.`home_team_id` = 10 /*action='team_strength',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:94:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Sum (0.3ms)[0m  [1m[34mSELECT SUM(`matches`.`home_score`) FROM `matches` WHERE `matches`.`home_team_id` = 8 /*action='team_strength',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:94:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Sum (0.5ms)[0m  [1m[34mSELECT SUM(`matches`.`away_score`) FROM `matches` WHERE `matches`.`away_team_id` = 10 /*action='team_strength',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:94:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Sum (0.3ms)[0m  [1m[34mSELECT SUM(`matches`.`away_score`) FROM `matches` WHERE `matches`.`away_team_id` = 8 /*action='team_strength',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:94:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Sum (0.2ms)[0m  [1m[34mSELECT SUM(`matches`.`away_score`) FROM `matches` WHERE `matches`.`home_team_id` = 10 /*action='team_strength',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:95:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Sum (0.5ms)[0m  [1m[34mSELECT SUM(`matches`.`away_score`) FROM `matches` WHERE `matches`.`home_team_id` = 8 /*action='team_strength',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:95:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Sum (0.2ms)[0m  [1m[34mSELECT SUM(`matches`.`home_score`) FROM `matches` WHERE `matches`.`away_team_id` = 10 /*action='team_strength',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:95:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mCACHE Match Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '10' OR away_team_id = '10')[0m
+  [1m[36mMatch Sum (3.2ms)[0m  [1m[34mSELECT SUM(`matches`.`home_score`) FROM `matches` WHERE `matches`.`away_team_id` = 8 /*action='team_strength',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:98:in 'AiMatchSimulator#get_team_stats'
+  ↳ app/services/ai_match_simulator.rb:95:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mCACHE Match Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '10' OR away_team_id = '10') AND ((home_team_id = '10' AND home_score > away_score) OR (away_team_id = '10' AND away_score > home_score))[0m
+  [1m[36mCACHE Match Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '8' OR away_team_id = '8')[0m
+  ↳ app/services/ai_match_simulator.rb:90:in 'AiMatchSimulator#get_team_stats'
+  ↳ app/services/ai_match_simulator.rb:98:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mCACHE Match Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '10' OR away_team_id = '10') AND (home_score = away_score)[0m
+  [1m[36mCACHE Match Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '8' OR away_team_id = '8') AND ((home_team_id = '8' AND home_score > away_score) OR (away_team_id = '8' AND away_score > home_score))[0m
+  ↳ app/services/ai_match_simulator.rb:91:in 'AiMatchSimulator#get_team_stats'
+  ↳ app/services/ai_match_simulator.rb:90:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mCACHE Match Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '10' OR away_team_id = '10')[0m
+  [1m[36mCACHE Match Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '8' OR away_team_id = '8') AND (home_score = away_score)[0m
+  ↳ app/services/ai_match_simulator.rb:92:in 'AiMatchSimulator#get_team_stats'
+  ↳ app/services/ai_match_simulator.rb:91:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mCACHE Match Sum (0.0ms)[0m  [1m[34mSELECT SUM(`matches`.`home_score`) FROM `matches` WHERE `matches`.`home_team_id` = 10[0m
+  [1m[36mCACHE Match Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '8' OR away_team_id = '8')[0m
+  ↳ app/services/ai_match_simulator.rb:94:in 'AiMatchSimulator#get_team_stats'
+  ↳ app/services/ai_match_simulator.rb:92:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mCACHE Match Sum (0.0ms)[0m  [1m[34mSELECT SUM(`matches`.`away_score`) FROM `matches` WHERE `matches`.`away_team_id` = 10[0m
+  [1m[36mCACHE Match Sum (0.0ms)[0m  [1m[34mSELECT SUM(`matches`.`home_score`) FROM `matches` WHERE `matches`.`home_team_id` = 8[0m
+  ↳ app/services/ai_match_simulator.rb:94:in 'AiMatchSimulator#get_team_stats'
+  ↳ app/services/ai_match_simulator.rb:94:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mCACHE Match Sum (0.0ms)[0m  [1m[34mSELECT SUM(`matches`.`away_score`) FROM `matches` WHERE `matches`.`home_team_id` = 10[0m
+  [1m[36mCACHE Match Sum (0.0ms)[0m  [1m[34mSELECT SUM(`matches`.`away_score`) FROM `matches` WHERE `matches`.`away_team_id` = 8[0m
+  ↳ app/services/ai_match_simulator.rb:95:in 'AiMatchSimulator#get_team_stats'
+  ↳ app/services/ai_match_simulator.rb:94:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mCACHE Match Sum (0.0ms)[0m  [1m[34mSELECT SUM(`matches`.`home_score`) FROM `matches` WHERE `matches`.`away_team_id` = 10[0m
+  [1m[36mCACHE Match Sum (0.0ms)[0m  [1m[34mSELECT SUM(`matches`.`away_score`) FROM `matches` WHERE `matches`.`home_team_id` = 8[0m
+  ↳ app/services/ai_match_simulator.rb:95:in 'AiMatchSimulator#get_team_stats'
+  ↳ app/services/ai_match_simulator.rb:95:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mCACHE Match Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '10' OR away_team_id = '10')[0m
+  [1m[36mCACHE Match Sum (0.0ms)[0m  [1m[34mSELECT SUM(`matches`.`home_score`) FROM `matches` WHERE `matches`.`away_team_id` = 8[0m
+  ↳ app/services/ai_match_simulator.rb:98:in 'AiMatchSimulator#get_team_stats'
+  ↳ app/services/ai_match_simulator.rb:95:in 'AiMatchSimulator#get_team_stats'
+Completed 200 OK in 88ms (Views: 0.3ms | ActiveRecord: 16.3ms (17 queries, 9 cached) | GC: 0.0ms)
+
+
+  [1m[36mCACHE Match Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '8' OR away_team_id = '8')[0m
+  ↳ app/services/ai_match_simulator.rb:98:in 'AiMatchSimulator#get_team_stats'
+Completed 200 OK in 79ms (Views: 0.3ms | ActiveRecord: 28.8ms (17 queries, 9 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/ai_matches/simulate_match" for ::1 at 2025-09-12 16:18:13 +0200
+Processing by Api::V1::AiMatchesController#simulate_match as JSON
+  Parameters: {"home_team_id" => "10", "away_team_id" => "8", "save_match" => "false", "ai_match" => {"home_team_id" => "10", "away_team_id" => "8", "save_match" => "false"}}
+  [1m[36mTeam Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM `teams` LIMIT 1 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/controllers/api/v1/ai_matches_controller.rb:143:in 'Api::V1::AiMatchesController#set_teams'
+  [1m[36mTeam Load (0.1ms)[0m  [1m[34mSELECT `teams`.* FROM `teams` WHERE `teams`.`id` = 10 LIMIT 1 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/controllers/api/v1/ai_matches_controller.rb:6:in 'Api::V1::AiMatchesController#simulate_match'
+  [1m[36mTeam Load (0.1ms)[0m  [1m[34mSELECT `teams`.* FROM `teams` WHERE `teams`.`id` = 8 LIMIT 1 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/controllers/api/v1/ai_matches_controller.rb:7:in 'Api::V1::AiMatchesController#simulate_match'
+  [1m[36mMatch Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '10' OR away_team_id = '10') AND ((home_team_id = '10' AND home_score > away_score) OR (away_team_id = '10' AND away_score > home_score)) /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:90:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '10' OR away_team_id = '10') AND (home_score = away_score) /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:91:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '10' OR away_team_id = '10') /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:92:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Sum (0.2ms)[0m  [1m[34mSELECT SUM(`matches`.`home_score`) FROM `matches` WHERE `matches`.`home_team_id` = 10 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:94:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Sum (0.1ms)[0m  [1m[34mSELECT SUM(`matches`.`away_score`) FROM `matches` WHERE `matches`.`away_team_id` = 10 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:94:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Sum (0.1ms)[0m  [1m[34mSELECT SUM(`matches`.`away_score`) FROM `matches` WHERE `matches`.`home_team_id` = 10 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:95:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Sum (0.2ms)[0m  [1m[34mSELECT SUM(`matches`.`home_score`) FROM `matches` WHERE `matches`.`away_team_id` = 10 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:95:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mCACHE Match Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '10' OR away_team_id = '10')[0m
+  ↳ app/services/ai_match_simulator.rb:98:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '8' OR away_team_id = '8') AND ((home_team_id = '8' AND home_score > away_score) OR (away_team_id = '8' AND away_score > home_score)) /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:90:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '8' OR away_team_id = '8') AND (home_score = away_score) /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:91:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '8' OR away_team_id = '8') /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:92:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Sum (0.2ms)[0m  [1m[34mSELECT SUM(`matches`.`home_score`) FROM `matches` WHERE `matches`.`home_team_id` = 8 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:94:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Sum (0.1ms)[0m  [1m[34mSELECT SUM(`matches`.`away_score`) FROM `matches` WHERE `matches`.`away_team_id` = 8 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:94:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Sum (0.1ms)[0m  [1m[34mSELECT SUM(`matches`.`away_score`) FROM `matches` WHERE `matches`.`home_team_id` = 8 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:95:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Sum (0.2ms)[0m  [1m[34mSELECT SUM(`matches`.`home_score`) FROM `matches` WHERE `matches`.`away_team_id` = 8 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:95:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mCACHE Match Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '8' OR away_team_id = '8')[0m
+  ↳ app/services/ai_match_simulator.rb:98:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mPlayer Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM `players` WHERE `players`.`team_id` = 10 LIMIT 1 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:236:in 'AiMatchSimulator#get_random_player_name'
+  [1m[36mPlayer Load (0.3ms)[0m  [1m[34mSELECT `players`.* FROM `players` WHERE `players`.`team_id` = 10 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:237:in 'AiMatchSimulator#get_random_player_name'
+  [1m[36mPlayer Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM `players` WHERE `players`.`team_id` = 8 LIMIT 1 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:236:in 'AiMatchSimulator#get_random_player_name'
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT `players`.* FROM `players` WHERE `players`.`team_id` = 8 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:237:in 'AiMatchSimulator#get_random_player_name'
+Completed 200 OK in 27ms (Views: 0.4ms | ActiveRecord: 3.9ms (23 queries, 2 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/ai_matches/simulate_match" for ::1 at 2025-09-12 16:18:16 +0200
+Processing by Api::V1::AiMatchesController#simulate_match as JSON
+  Parameters: {"home_team_id" => "10", "away_team_id" => "8", "save_match" => "false", "ai_match" => {"home_team_id" => "10", "away_team_id" => "8", "save_match" => "false"}}
+  [1m[36mTeam Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM `teams` LIMIT 1 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/controllers/api/v1/ai_matches_controller.rb:143:in 'Api::V1::AiMatchesController#set_teams'
+  [1m[36mTeam Load (0.2ms)[0m  [1m[34mSELECT `teams`.* FROM `teams` WHERE `teams`.`id` = 10 LIMIT 1 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/controllers/api/v1/ai_matches_controller.rb:6:in 'Api::V1::AiMatchesController#simulate_match'
+  [1m[36mTeam Load (0.2ms)[0m  [1m[34mSELECT `teams`.* FROM `teams` WHERE `teams`.`id` = 8 LIMIT 1 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/controllers/api/v1/ai_matches_controller.rb:7:in 'Api::V1::AiMatchesController#simulate_match'
+  [1m[36mMatch Count (1.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '10' OR away_team_id = '10') AND ((home_team_id = '10' AND home_score > away_score) OR (away_team_id = '10' AND away_score > home_score)) /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:90:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '10' OR away_team_id = '10') AND (home_score = away_score) /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:91:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Count (21.0ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '10' OR away_team_id = '10') /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:92:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Sum (0.3ms)[0m  [1m[34mSELECT SUM(`matches`.`home_score`) FROM `matches` WHERE `matches`.`home_team_id` = 10 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:94:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Sum (0.1ms)[0m  [1m[34mSELECT SUM(`matches`.`away_score`) FROM `matches` WHERE `matches`.`away_team_id` = 10 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:94:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Sum (0.1ms)[0m  [1m[34mSELECT SUM(`matches`.`away_score`) FROM `matches` WHERE `matches`.`home_team_id` = 10 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:95:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Sum (0.2ms)[0m  [1m[34mSELECT SUM(`matches`.`home_score`) FROM `matches` WHERE `matches`.`away_team_id` = 10 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:95:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mCACHE Match Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '10' OR away_team_id = '10')[0m
+  ↳ app/services/ai_match_simulator.rb:98:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Count (22.7ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '8' OR away_team_id = '8') AND ((home_team_id = '8' AND home_score > away_score) OR (away_team_id = '8' AND away_score > home_score)) /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:90:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '8' OR away_team_id = '8') AND (home_score = away_score) /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:91:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '8' OR away_team_id = '8') /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:92:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Sum (0.2ms)[0m  [1m[34mSELECT SUM(`matches`.`home_score`) FROM `matches` WHERE `matches`.`home_team_id` = 8 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:94:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Sum (0.1ms)[0m  [1m[34mSELECT SUM(`matches`.`away_score`) FROM `matches` WHERE `matches`.`away_team_id` = 8 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:94:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Sum (0.1ms)[0m  [1m[34mSELECT SUM(`matches`.`away_score`) FROM `matches` WHERE `matches`.`home_team_id` = 8 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:95:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Sum (0.1ms)[0m  [1m[34mSELECT SUM(`matches`.`home_score`) FROM `matches` WHERE `matches`.`away_team_id` = 8 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:95:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mCACHE Match Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '8' OR away_team_id = '8')[0m
+  ↳ app/services/ai_match_simulator.rb:98:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mPlayer Exists? (1.1ms)[0m  [1m[34mSELECT 1 AS one FROM `players` WHERE `players`.`team_id` = 10 LIMIT 1 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:236:in 'AiMatchSimulator#get_random_player_name'
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT `players`.* FROM `players` WHERE `players`.`team_id` = 10 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:237:in 'AiMatchSimulator#get_random_player_name'
+  [1m[36mPlayer Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM `players` WHERE `players`.`team_id` = 8 LIMIT 1 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:236:in 'AiMatchSimulator#get_random_player_name'
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT `players`.* FROM `players` WHERE `players`.`team_id` = 8 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:237:in 'AiMatchSimulator#get_random_player_name'
+Completed 200 OK in 59ms (Views: 0.1ms | ActiveRecord: 49.4ms (23 queries, 2 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/ai_matches/simulate_match" for ::1 at 2025-09-12 16:18:20 +0200
+Processing by Api::V1::AiMatchesController#simulate_match as JSON
+  Parameters: {"home_team_id" => "10", "away_team_id" => "8", "save_match" => "true", "ai_match" => {"home_team_id" => "10", "away_team_id" => "8", "save_match" => "true"}}
+  [1m[36mTeam Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM `teams` LIMIT 1 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/controllers/api/v1/ai_matches_controller.rb:143:in 'Api::V1::AiMatchesController#set_teams'
+  [1m[36mTeam Load (0.2ms)[0m  [1m[34mSELECT `teams`.* FROM `teams` WHERE `teams`.`id` = 10 LIMIT 1 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/controllers/api/v1/ai_matches_controller.rb:6:in 'Api::V1::AiMatchesController#simulate_match'
+  [1m[36mTeam Load (0.1ms)[0m  [1m[34mSELECT `teams`.* FROM `teams` WHERE `teams`.`id` = 8 LIMIT 1 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/controllers/api/v1/ai_matches_controller.rb:7:in 'Api::V1::AiMatchesController#simulate_match'
+  [1m[36mMatch Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '10' OR away_team_id = '10') AND ((home_team_id = '10' AND home_score > away_score) OR (away_team_id = '10' AND away_score > home_score)) /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:90:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '10' OR away_team_id = '10') AND (home_score = away_score) /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:91:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '10' OR away_team_id = '10') /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:92:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Sum (0.3ms)[0m  [1m[34mSELECT SUM(`matches`.`home_score`) FROM `matches` WHERE `matches`.`home_team_id` = 10 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:94:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Sum (0.1ms)[0m  [1m[34mSELECT SUM(`matches`.`away_score`) FROM `matches` WHERE `matches`.`away_team_id` = 10 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:94:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Sum (0.1ms)[0m  [1m[34mSELECT SUM(`matches`.`away_score`) FROM `matches` WHERE `matches`.`home_team_id` = 10 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:95:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Sum (0.1ms)[0m  [1m[34mSELECT SUM(`matches`.`home_score`) FROM `matches` WHERE `matches`.`away_team_id` = 10 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:95:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mCACHE Match Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '10' OR away_team_id = '10')[0m
+  ↳ app/services/ai_match_simulator.rb:98:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '8' OR away_team_id = '8') AND ((home_team_id = '8' AND home_score > away_score) OR (away_team_id = '8' AND away_score > home_score)) /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:90:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '8' OR away_team_id = '8') AND (home_score = away_score) /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:91:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '8' OR away_team_id = '8') /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:92:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Sum (0.2ms)[0m  [1m[34mSELECT SUM(`matches`.`home_score`) FROM `matches` WHERE `matches`.`home_team_id` = 8 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:94:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Sum (0.2ms)[0m  [1m[34mSELECT SUM(`matches`.`away_score`) FROM `matches` WHERE `matches`.`away_team_id` = 8 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:94:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Sum (0.1ms)[0m  [1m[34mSELECT SUM(`matches`.`away_score`) FROM `matches` WHERE `matches`.`home_team_id` = 8 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:95:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mMatch Sum (0.1ms)[0m  [1m[34mSELECT SUM(`matches`.`home_score`) FROM `matches` WHERE `matches`.`away_team_id` = 8 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:95:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mCACHE Match Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM `matches` WHERE (home_team_id = '8' OR away_team_id = '8')[0m
+  ↳ app/services/ai_match_simulator.rb:98:in 'AiMatchSimulator#get_team_stats'
+  [1m[36mPlayer Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM `players` WHERE `players`.`team_id` = 10 LIMIT 1 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:236:in 'AiMatchSimulator#get_random_player_name'
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT `players`.* FROM `players` WHERE `players`.`team_id` = 10 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:237:in 'AiMatchSimulator#get_random_player_name'
+  [1m[36mPlayer Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM `players` WHERE `players`.`team_id` = 8 LIMIT 1 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:236:in 'AiMatchSimulator#get_random_player_name'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT `players`.* FROM `players` WHERE `players`.`team_id` = 8 /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/services/ai_match_simulator.rb:237:in 'AiMatchSimulator#get_random_player_name'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/controllers/api/v1/ai_matches_controller.rb:18:in 'Api::V1::AiMatchesController#simulate_match'
+  [1m[36mMatch Create (1.3ms)[0m  [1m[32mINSERT INTO `matches` (`home_team_id`, `away_team_id`, `match_date`, `home_score`, `away_score`, `created_at`, `updated_at`) VALUES (10, 8, '2025-09-19 14:18:20.380138', 3, 2, '2025-09-12 14:18:20.386670', '2025-09-12 14:18:20.386670') /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/controllers/api/v1/ai_matches_controller.rb:18:in 'Api::V1::AiMatchesController#simulate_match'
+  [1m[36mTRANSACTION (2.0ms)[0m  [1m[35mCOMMIT /*action='simulate_match',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/controllers/api/v1/ai_matches_controller.rb:18:in 'Api::V1::AiMatchesController#simulate_match'
+Completed 200 OK in 33ms (Views: 0.1ms | ActiveRecord: 7.4ms (24 queries, 2 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/ai_matches/simulate_season" for ::1 at 2025-09-12 16:18:32 +0200
+Processing by Api::V1::AiMatchesController#simulate_season as JSON
+  Parameters: {"save_matches" => "false", "ai_match" => {"save_matches" => "false"}}
+  [1m[36mTeam Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM `teams` LIMIT 1 /*action='simulate_season',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/controllers/api/v1/ai_matches_controller.rb:143:in 'Api::V1::AiMatchesController#set_teams'
+  [1m[36mTeam Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM `teams` /*action='simulate_season',application='SoccerStats',controller='ai_matches'*/[0m
+  ↳ app/controllers/api/v1/ai_matches_controller.rb:44:in 'Api::V1::AiMatchesController#simulate_season'
+Completed 422 Unprocessable Content in 4ms (Views: 0.1ms | ActiveRecord: 1.0ms (2 queries, 0 cached) | GC: 0.0ms)
+
+

@@ -34,6 +34,10 @@ class Api::V1::AiMatchesController < Api::V1::BaseController
         saved: false
       })
     end
+  rescue ActiveRecord::RecordNotFound => e
+    render_error("Team not found: #{e.message}")
+  rescue StandardError => e
+    render_error("Simulation failed: #{e.message}")
   end
 
   def simulate_season
@@ -66,6 +70,8 @@ class Api::V1::AiMatchesController < Api::V1::BaseController
         saved: false
       })
     end
+  rescue StandardError => e
+    render_error("Season simulation failed: #{e.message}")
   end
 
   def preview_simulation
@@ -99,6 +105,10 @@ class Api::V1::AiMatchesController < Api::V1::BaseController
       simulation_stats: stats,
       sample_simulations: simulations.first(3)
     })
+  rescue ActiveRecord::RecordNotFound => e
+    render_error("Team not found: #{e.message}")
+  rescue StandardError => e
+    render_error("Preview failed: #{e.message}")
   end
 
   def team_strength
@@ -120,6 +130,10 @@ class Api::V1::AiMatchesController < Api::V1::BaseController
                       else 'Elite'
                       end
     })
+  rescue ActiveRecord::RecordNotFound => e
+    render_error("Team not found: #{e.message}")
+  rescue StandardError => e
+    render_error("Team strength calculation failed: #{e.message}")
   end
 
   private
