@@ -76,7 +76,24 @@ import { ApiResponse } from '../../services/api';
                 <strong>Age:</strong><br>
                 <span class="text-muted">{{ player.age }} years old</span>
               </div>
-              
+
+              <div class="mb-3">
+                <strong><i class="fas fa-futbol me-1"></i>Goals:</strong><br>
+                <span class="fs-4 text-primary fw-bold">{{ player.goals }}</span>
+                @if (player.goals > 0) {
+                  <span class="text-muted ms-2">
+                    <i class="fas fa-fire"></i>
+                    @if (player.goals >= 20) {
+                      <span class="text-danger">Top Scorer!</span>
+                    } @else if (player.goals >= 10) {
+                      <span class="text-warning">Prolific!</span>
+                    } @else {
+                      <span class="text-info">On Target</span>
+                    }
+                  </span>
+                }
+              </div>
+
               <div class="mb-3">
                 <strong>Team:</strong><br>
                 <a [routerLink]="['/teams', player.team?.id]" class="text-decoration-none">
@@ -113,8 +130,8 @@ import { ApiResponse } from '../../services/api';
                   <small class="text-muted">Founded</small>
                 </div>
                 <div class="col-3">
-                  <h4>-</h4>
-                  <small class="text-muted">Matches</small>
+                  <h4>{{ getTeamGoals() }}</h4>
+                  <small class="text-muted">Team Goals</small>
                 </div>
               </div>
               
@@ -144,6 +161,8 @@ import { ApiResponse } from '../../services/api';
                     <div>
                       <strong>{{ teammate.name }}</strong><br>
                       <small class="text-muted">Age {{ teammate.age }}</small>
+                      <br>
+                      <small class="text-primary"><i class="fas fa-futbol"></i> {{ teammate.goals }} goals</small>
                     </div>
                     <div>
                       <a [routerLink]="['/players', teammate.id]" class="btn btn-sm btn-outline-primary">
@@ -232,5 +251,11 @@ export class PlayerDetailComponent implements OnInit {
 
   getPositionMatesCount(): number {
     return this.player?.position_teammates?.length || 0;
+  }
+
+  getTeamGoals(): number {
+    if (!this.player?.teammates) return this.player?.goals || 0;
+    const teammateGoals = this.player.teammates.reduce((total, teammate) => total + (teammate.goals || 0), 0);
+    return teammateGoals + (this.player.goals || 0);
   }
 }

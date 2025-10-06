@@ -87,13 +87,17 @@ import { ApiResponse } from '../../services/api';
                 </div>
                 <hr>
                 <div class="row text-center">
-                  <div class="col-6">
+                  <div class="col-4">
                     <h6 class="text-success">{{ team.stats.goals_for }}</h6>
                     <small>Goals For</small>
                   </div>
-                  <div class="col-6">
+                  <div class="col-4">
                     <h6 class="text-danger">{{ team.stats.goals_against }}</h6>
-                    <small>Goals Against</small>
+                    <small>Against</small>
+                  </div>
+                  <div class="col-4">
+                    <h6 class="text-primary">{{ getTotalPlayerGoals() }}</h6>
+                    <small>Player Goals</small>
                   </div>
                 </div>
               } @else {
@@ -122,21 +126,28 @@ import { ApiResponse } from '../../services/api';
                         <th>Name</th>
                         <th>Position</th>
                         <th>Age</th>
+                        <th class="text-center"><i class="fas fa-futbol"></i> Goals</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
-                      @for (player of team.players; track player.id) {
+                      @for (player of getSortedPlayers(); track player.id) {
                         <tr>
                           <td>
                             <a [routerLink]="['/players', player.id]" class="text-decoration-none">
                               {{ player.name }}
+                              @if (isTopScorer(player)) {
+                                <i class="fas fa-crown text-warning ms-1" title="Top Scorer"></i>
+                              }
                             </a>
                           </td>
                           <td>
                             <span class="badge bg-secondary">{{ player.position }}</span>
                           </td>
                           <td>{{ player.age }}</td>
+                          <td class="text-center">
+                            <strong class="text-primary">{{ player.goals }}</strong>
+                          </td>
                           <td>
                             <div class="btn-group btn-group-sm">
                               <a [routerLink]="['/players', player.id]" class="btn btn-outline-primary btn-sm">
@@ -286,11 +297,11 @@ export class TeamDetailComponent implements OnInit {
 
   getMatchResultBadgeClass(match: any): string {
     if (!this.team) return 'bg-secondary';
-    
+
     const isHome = match.home_team.id === this.team.id;
     const teamScore = isHome ? match.home_score : match.away_score;
     const opponentScore = isHome ? match.away_score : match.home_score;
-    
+
     if (teamScore > opponentScore) {
       return 'bg-success'; // Win
     } else if (teamScore === opponentScore) {
@@ -298,5 +309,21 @@ export class TeamDetailComponent implements OnInit {
     } else {
       return 'bg-danger'; // Loss
     }
+  }
+
+  getTotalPlayerGoals(): number {
+    if (!this.team?.players) return 0;
+    return this.team.players.reduce((total, player) => total + (player.goals || 0), 0);
+  }
+
+  getSortedPlayers(): any[] {
+    if (!this.team?.players) return [];
+    return [...this.team.players].sort((a, b) => (b.goals || 0) - (a.goals || 0));
+  }
+
+  isTopScorer(player: any): boolean {
+    if (!this.team?.players || this.team.players.length === 0) return false;
+    const maxGoals = Math.max(...this.team.players.map(p => p.goals || 0));
+    return maxGoals > 0 && player.goals === maxGoals;
   }
 }

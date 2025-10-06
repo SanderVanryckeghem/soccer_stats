@@ -178,26 +178,41 @@ import { DashboardData } from '../../models/models';
             </div>
           </div>
           
-          <!-- Top Players -->
+          <!-- Top Scorers -->
           <div class="card mt-3">
-            <div class="card-header">
+            <div class="card-header d-flex justify-content-between align-items-center">
               <h5 class="mb-0">
-                <i class="fas fa-star me-2"></i>
-                Players
+                <i class="fas fa-futbol me-2 text-warning"></i>
+                Top Scorers
               </h5>
+              <a routerLink="/players" class="btn btn-sm btn-outline-primary">
+                View All
+              </a>
             </div>
             <div class="card-body">
-              <div *ngIf="dashboardData.top_players.length > 0; else noPlayers">
-                <div *ngFor="let player of dashboardData.top_players; trackBy: trackByPlayerId" class="d-flex justify-content-between align-items-center border-bottom py-1">
-                  <div>
-                    <strong>{{ player.name }}</strong><br>
-                    <small class="text-muted">{{ player.team?.name }}</small>
+              <div *ngIf="getTopScorers().length > 0; else noPlayers">
+                <div *ngFor="let player of getTopScorers(); trackBy: trackByPlayerId; let i = index" class="d-flex justify-content-between align-items-center border-bottom py-2">
+                  <div class="d-flex align-items-center">
+                    <div class="me-2">
+                      <span class="badge" [class]="getRankBadgeClass(i)">
+                        #{{ i + 1 }}
+                      </span>
+                    </div>
+                    <div>
+                      <strong>{{ player.name }}</strong><br>
+                      <small class="text-muted">{{ player.team?.name }}</small>
+                    </div>
                   </div>
-                  <span class="badge bg-secondary">{{ player.position }}</span>
+                  <div class="text-end">
+                    <div class="text-primary fw-bold">
+                      <i class="fas fa-futbol"></i> {{ player.goals }}
+                    </div>
+                    <small class="text-muted">{{ player.position }}</small>
+                  </div>
                 </div>
               </div>
               <ng-template #noPlayers>
-                <p class="text-muted">No players recorded yet.</p>
+                <p class="text-muted text-center py-3">No players with goals yet.</p>
               </ng-template>
             </div>
           </div>
@@ -253,5 +268,22 @@ export class DashboardComponent implements OnInit {
 
   trackByPlayerId(index: number, player: any): number {
     return player.id;
+  }
+
+  getTopScorers(): any[] {
+    if (!this.dashboardData?.top_players) return [];
+    return this.dashboardData.top_players
+      .filter(player => player.goals > 0)
+      .sort((a, b) => b.goals - a.goals)
+      .slice(0, 5);
+  }
+
+  getRankBadgeClass(index: number): string {
+    switch(index) {
+      case 0: return 'bg-warning';
+      case 1: return 'bg-secondary';
+      case 2: return 'bg-danger';
+      default: return 'bg-info';
+    }
   }
 }

@@ -87,7 +87,7 @@ import { ApiResponse } from '../../services/api';
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label for="position" class="form-label">Position *</label>
-                    <select 
+                    <select
                       id="position"
                       class="form-select"
                       [class.is-invalid]="playerForm.get('position')?.invalid && playerForm.get('position')?.touched"
@@ -105,10 +105,33 @@ import { ApiResponse } from '../../services/api';
                     }
                   </div>
                 </div>
-                
+
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label class="form-label">&nbsp;</label>
+                    <label for="goals" class="form-label">
+                      <i class="fas fa-futbol me-1"></i>Goals
+                    </label>
+                    <input
+                      type="number"
+                      id="goals"
+                      class="form-control"
+                      [class.is-invalid]="playerForm.get('goals')?.invalid && playerForm.get('goals')?.touched"
+                      formControlName="goals"
+                      placeholder="Enter goals scored"
+                      min="0">
+                    @if (playerForm.get('goals')?.invalid && playerForm.get('goals')?.touched) {
+                      <div class="invalid-feedback">
+                        Goals must be 0 or greater.
+                      </div>
+                    }
+                    <small class="text-muted">Default: 0</small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="mb-3">
                     <div class="form-control-plaintext">
                       <small class="text-muted">
                         <i class="fas fa-info-circle"></i>
@@ -166,7 +189,8 @@ export class PlayerFormComponent implements OnInit {
     this.playerForm = this.fb.group({
       name: ['', [Validators.required]],
       position: ['', [Validators.required]],
-      age: ['', [Validators.required, Validators.min(16), Validators.max(45)]]
+      age: ['', [Validators.required, Validators.min(16), Validators.max(45)]],
+      goals: [0, [Validators.required, Validators.min(0)]]
     });
   }
 
@@ -215,7 +239,8 @@ export class PlayerFormComponent implements OnInit {
             this.playerForm.patchValue({
               name: player.name,
               position: player.position,
-              age: player.age
+              age: player.age,
+              goals: player.goals || 0
             });
           } else {
             this.error = 'Failed to load player data';
