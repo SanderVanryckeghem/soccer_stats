@@ -20,16 +20,16 @@ puts "Creating players..."
 
 players_data = [
   # Barcelona players
-  { name: "Lionel Messi", position: "Forward", age: 36, team: "Barcelona" },
-  { name: "Gerard Piqué", position: "Defender", age: 36, team: "Barcelona" },
-  { name: "Sergio Busquets", position: "Midfielder", age: 35, team: "Barcelona" },
-  { name: "Marc-André ter Stegen", position: "Goalkeeper", age: 31, team: "Barcelona" },
-  
+  { name: "Lionel Messi", position: "Forward", age: 36, goals: 25, team: "Barcelona" },
+  { name: "Gerard Piqué", position: "Defender", age: 36, goals: 3, team: "Barcelona" },
+  { name: "Sergio Busquets", position: "Midfielder", age: 35, goals: 5, team: "Barcelona" },
+  { name: "Marc-André ter Stegen", position: "Goalkeeper", age: 31, goals: 0, team: "Barcelona" },
+
   # Real Madrid players
-  { name: "Karim Benzema", position: "Forward", age: 36, team: "Real Madrid" },
-  { name: "Luka Modrić", position: "Midfielder", age: 38, team: "Real Madrid" },
-  { name: "Sergio Ramos", position: "Defender", age: 37, team: "Real Madrid" },
-  { name: "Thibaut Courtois", position: "Goalkeeper", age: 31, team: "Real Madrid" },
+  { name: "Karim Benzema", position: "Forward", age: 36, goals: 22, team: "Real Madrid" },
+  { name: "Luka Modrić", position: "Midfielder", age: 38, goals: 8, team: "Real Madrid" },
+  { name: "Sergio Ramos", position: "Defender", age: 37, goals: 6, team: "Real Madrid" },
+  { name: "Thibaut Courtois", position: "Goalkeeper", age: 31, goals: 0, team: "Real Madrid" },
 ]
 
 players_data.each do |player_data|
@@ -37,6 +37,7 @@ players_data.each do |player_data|
   Player.find_or_create_by(name: player_data[:name], team: team) do |player|
     player.position = player_data[:position]
     player.age = player_data[:age]
+    player.goals = player_data[:goals]
   end
 end
 

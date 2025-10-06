@@ -13,6 +13,7 @@ class Api::V1::PlayersController < Api::V1::BaseController
         name: player.name,
         position: player.position,
         age: player.age,
+        goals: player.goals,
         team: {
           id: player.team.id,
           name: player.team.name,
@@ -35,6 +36,7 @@ class Api::V1::PlayersController < Api::V1::BaseController
       name: @player.name,
       position: @player.position,
       age: @player.age,
+      goals: @player.goals,
       team: {
         id: @player.team.id,
         name: @player.team.name,
@@ -46,7 +48,8 @@ class Api::V1::PlayersController < Api::V1::BaseController
           id: teammate.id,
           name: teammate.name,
           position: teammate.position,
-          age: teammate.age
+          age: teammate.age,
+          goals: teammate.goals
         }
       end,
       position_teammates: @player.team.players
@@ -57,7 +60,8 @@ class Api::V1::PlayersController < Api::V1::BaseController
           {
             id: teammate.id,
             name: teammate.name,
-            age: teammate.age
+            age: teammate.age,
+            goals: teammate.goals
           }
         end,
       created_at: @player.created_at,
@@ -76,6 +80,7 @@ class Api::V1::PlayersController < Api::V1::BaseController
         name: @player.name,
         position: @player.position,
         age: @player.age,
+        goals: @player.goals,
         team_id: @player.team_id
       }, 'Player created successfully', :created)
     else
@@ -90,6 +95,7 @@ class Api::V1::PlayersController < Api::V1::BaseController
         name: @player.name,
         position: @player.position,
         age: @player.age,
+        goals: @player.goals,
         team_id: @player.team_id
       }, 'Player updated successfully')
     else
@@ -123,6 +129,6 @@ class Api::V1::PlayersController < Api::V1::BaseController
   end
 
   def player_params
-    params.require(:player).permit(:name, :position, :age)
+    params.require(:player).permit(:name, :position, :age, :goals)
   end
 end
