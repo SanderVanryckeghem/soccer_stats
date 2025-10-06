@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_07_115956) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_06_174741) do
   create_table "matches", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "home_team_id", null: false
     t.bigint "away_team_id", null: false
@@ -23,6 +23,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_07_115956) do
     t.index ["home_team_id"], name: "index_matches_on_home_team_id"
   end
 
+  create_table "player_goals", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "player_id", null: false
+    t.bigint "match_id", null: false
+    t.integer "minute"
+    t.string "goal_type"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["match_id"], name: "index_player_goals_on_match_id"
+    t.index ["player_id"], name: "index_player_goals_on_player_id"
+  end
+
   create_table "players", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "position"
@@ -30,6 +42,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_07_115956) do
     t.bigint "team_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "goals", default: 0, null: false
     t.index ["team_id"], name: "index_players_on_team_id"
   end
 
@@ -43,5 +56,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_07_115956) do
 
   add_foreign_key "matches", "teams", column: "away_team_id"
   add_foreign_key "matches", "teams", column: "home_team_id"
+  add_foreign_key "player_goals", "matches"
+  add_foreign_key "player_goals", "players"
   add_foreign_key "players", "teams"
 end

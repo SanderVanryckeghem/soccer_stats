@@ -87,15 +87,16 @@ import { ApiResponse } from '../../services/api';
           <!-- Sort Options -->
           <div class="col-md-2">
             <label for="sortBy" class="form-label">Sort By</label>
-            <select 
+            <select
               id="sortBy"
-              class="form-select" 
+              class="form-select"
               [(ngModel)]="sortBy"
               (change)="sortPlayers()">
               <option value="name">Name</option>
               <option value="age">Age</option>
               <option value="position">Position</option>
               <option value="team">Team</option>
+              <option value="goals">Goals</option>
             </select>
           </div>
         </div>
@@ -152,6 +153,10 @@ import { ApiResponse } from '../../services/api';
                   <div class="d-flex justify-content-between align-items-center mb-2">
                     <span class="text-muted">Age:</span>
                     <strong>{{ player.age }}</strong>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="text-muted"><i class="fas fa-futbol me-1"></i>Goals:</span>
+                    <strong class="text-primary">{{ player.goals }}</strong>
                   </div>
                   <div class="d-flex justify-content-between align-items-center mb-2">
                     <span class="text-muted">Team:</span>
@@ -385,6 +390,8 @@ export class PlayersComponent implements OnInit {
           return a.position.localeCompare(b.position);
         case 'team':
           return (a.team?.name || '').localeCompare(b.team?.name || '');
+        case 'goals':
+          return b.goals - a.goals;
         default:
           return 0;
       }

@@ -18,6 +18,7 @@ export interface Player {
   name: string;
   position: string;
   age: number;
+  goals: number;
   team_id?: number;
   team?: Team;
   teammates?: Player[];
